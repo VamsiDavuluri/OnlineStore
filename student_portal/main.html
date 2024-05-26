@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Book Exchange</title>
+    <link rel="stylesheet" href="styhome.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="gitam.jpg" alt="Logo">
+            <h3>The Online Bookstore</h3>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="main.html">Home</a></li>
+                <li><a href="sell.html">Sell Books</a></li>
+                <li><a href="buying.html">Buy Books</a></li>
+                <li><a href="login.html">Logout</a></li>
+            </ul>
+            <div class="user-info">
+                
+                <span>(<span id="cart-count">0</span>)</span>
+            </div>
+            <div class="cart-icon">
+                <img src="cart.png" alt="Cart" onclick="toggleCart()">
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h2>Shop Book Online</h2>
+                <p>Welcome to our online platform designed exclusively for university students to buy and sell books easily! Our website provides a seamless experience for students to browse, list, and purchase textbooks for their courses. With a user-friendly interface, students can search for specific books, view detailed descriptions, and connect with sellers efficiently. Whether you're looking to declutter your bookshelf or find affordable textbooks, our website is the go-to place for all your academic needs. Join our community of book-loving students today</p>
+                <button onclick="location.href='buying.html'">Shop Now</button>
+            </div>
+            <div class="hero-image">
+                <img src="hero.jpg" alt="Hero Image">
+            </div>
+        </section>
+        <section class="features">
+            <div class="feature-item">
+                <img src="dola.jpeg" alt="Best Value">
+                <p>Best Value</p>
+            </div>
+            <div class="feature-item">
+                <img src="quality.jpeg" alt="Quality Product">
+                <p>Quality Product</p>
+            </div>
+            <div class="feature-item">
+                <img src="bool.jpeg" alt="Best Service">
+                <p>Best Service</p>
+            </div>
+            <div class="feature-item">
+                <img src="van.jpeg" alt="Free Shipping">
+                <p>Free Shipping</p>
+            </div>
+        </section>
+        
+        <section class="handwritten-notes">
+            <h2>We've got handwritten notes which are very important</h2>
+            
+        </section>
+        <section class="catalog">
+            <h2>Our Books Catalog</h2>
+            <div class="categories">
+                <a href="#" data-category="all">All</a>
+                <a href="#" data-category="programming">Programming</a>
+                <a href="#" data-category="networks">Networks</a>
+                <a href="#" data-category="data-structures">Data Structures</a>
+                <a href="#" data-category="compiler-design">Compiler Design</a>
+                <a href="#" data-category="handwritten-notes">Hand Written Notes</a>
+                
+            </div>
+            <div class="books">
+                <div class="book-item" data-category="data-structures">
+                    <img src="book1.jpg" alt="Book 1">
+                    <h3>Data Structures</h3>
+                    <p>Alfred V.Aho</p>
+                    <p>₹297</p>
+                    <button onclick="addToCart('Data Structures', 'Alfred V.Aho', 297, 'book1.jpg', 'Rohit Sharma', '9876543210')">Add to Cart</button>
+                </div>
+                <div class="book-item" data-category="programming">
+                    <img src="book2.jpg" alt="Book 2">
+                    <h3>Effective Java</h3>
+                    <p>Joshua Bloch</p>
+                    <p>₹385</p>
+                    <button onclick="addToCart('Effective Java', 'Joshua Bloch', 385, 'book2.jpg', 'John Doe', '1234567890')">Add to Cart</button>
+                </div>
+                <div class="book-item" data-category="programming">
+                    <img src="py.jpg" alt="Book 3">
+                    <h3>Python Programming</h3>
+                    <p>Dr C.K Dhaliwal</p>
+                    <p>₹180</p>
+                    <button onclick="addToCart('Python Programming', 'Dr C.K Dhaliwal', 180, 'py.jpg', 'Jane Doe', '9876543210')">Add to Cart</button>
+                </div>
+                <div class="book-item" data-category="networks">
+                    <img src="book4.jpg" alt="Book 4">
+                    <h3>Computer Networks</h3>
+                    <p>Andrew S.Tanenbaum</p>
+                    <p>₹296</p>
+                    <button onclick="addToCart('Computer Networks', 'Andrew S.Tanenbaum', 296, 'book4.jpg', 'Alice Smith', '1234567890')">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+        <section class="cart" id="cart" style="display:none;">
+            <h2>Cart</h2>
+            <div id="cart-items"></div>
+            <button onclick="location.href='payment.html'">Proceed to Payment</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Student Book Exchange</p>
+    </footer>
+    <script>
+        // Category filter
+        document.querySelectorAll('.categories a').forEach(link => {
+            link.addEventListener('click', event => {
+                event.preventDefault();
+                const category = event.target.getAttribute('data-category');
+                document.querySelectorAll('.book-item').forEach(book => {
+                    if (category === 'all' || book.getAttribute('data-category') === category) {
+                        book.style.display = 'block';
+                    } else {
+                        book.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Cart functionality
+        let cart = [];
+        function addToCart(title, author, price, image, sellerName, sellerPhone) {
+            cart.push({ title, author, price, image, sellerName, sellerPhone });
+            displayCart();
+        }
+
+        function displayCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <h3>${item.title}</h3>
+                    <p>${item.author}</p>
+                    <p>₹${item.price}</p>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            document.getElementById('cart-count').textContent = cart.length;
+        }
+
+        function toggleCart() {
+            const cartSection = document.getElementById('cart');
+            if (cartSection.style.display === 'none') {
+                cartSection.style.display = 'block';
+            } else {
+                cartSection.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

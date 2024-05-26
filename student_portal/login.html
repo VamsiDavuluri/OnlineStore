@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="wrapper">
+        <nav class="nav">
+            <div class="nav-logo">
+                <img src="gitam.jpg" alt="Gitam" width="80" height="70">
+            </div>
+            <div class="nav-menu" id="navMenu"></div>
+            <div class="nav-button"></div>
+            <div class="nav-menu-btn">
+                <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+            </div>
+        </nav>
+
+        <!----------------------------- Form box ----------------------------------->
+        <div class="form-container">
+            <div class="form-box">
+                <!------------------- login form -------------------------->
+                <form class="login-container" id="login" onsubmit="return handleLogin(event)">
+                    <div class="top">
+                        <header>Login</header>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" class="input-field" id="username" placeholder="Username or Email" required>
+                        <i class="bx bx-user"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" class="input-field" id="password" placeholder="Password" required>
+                        <i class="bx bx-lock-alt"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="submit" class="submit" value="Log In">
+                    </div>
+                    <div class="two-col">
+                        <div class="one">
+                            <input type="checkbox" id="login-check">
+                            <label for="login-check"> Remember Me</label>
+                        </div>
+                        <div class="two">
+                            <label><a href="forgot.html">Forgot password?</a></label>
+                        </div>
+                    </div>
+                    <div id="error-message" style="color: red; display: none;">Invalid username or password</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function myMenuFunction() {
+            var i = document.getElementById("navMenu");
+            if (i.className === "nav-menu") {
+                i.className += " responsive";
+            } else {
+                i.className = "nav-menu";
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var errorMessage = document.getElementById('error-message');
+
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@gitam\.in$/;
+            var passwordPattern = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$/;
+
+            if (emailPattern.test(username) && passwordPattern.test(password)) {
+                window.location.href = 'main.html'; // Redirect to the homepage
+            } else {
+                errorMessage.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

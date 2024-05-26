@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Yugandhar",
+        "author": "Shiwaji Sawant",
+        "subject": "Programming",
+        "price": 297,
+        "sellerName": "Rohit Sharma",
+        "phone": "9876543210",
+        "image": "path/to/image1.jpg",
+        "category": "novels"
+    },
+    {
+        "title": "Effective Java",
+        "author": "Robert Swang",
+        "subject": "Programming",
+        "price": 385,
+        "sellerName": "John Doe",
+        "phone": "1234567890",
+        "image": "path/to/image2.jpg",
+        "category": "programming"
+    }
+]

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <link rel="stylesheet" href="styles1.css">
+</head>
+<header>
+    <div class="logo">
+        <img src="gitam.jpg" alt="Logo">
+        <h3>The Online Bookstore</h3>
+    </div>
+</header>
+<body>
+    
+    <main>
+        <section class="receipt">
+            <h2>Payment Successful</h2>
+            <div id="receipt-details"></div>
+            <button onclick="window.print()">Print Receipt</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Student Book Exchange</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const receiptData = JSON.parse(localStorage.getItem('receiptData'));
+            if (receiptData) {
+                const receiptDetails = document.getElementById('receipt-details');
+                let receiptHTML = `
+                    <h3>Payment Details</h3>
+                    <p>Card Number: ${receiptData.paymentDetails.cardNumber}</p>
+                    <p>Expiry Date: ${receiptData.paymentDetails.expiryDate}</p>
+                    <p>Name on Card: ${receiptData.paymentDetails.name}</p>
+                    <h3>Books Purchased</h3>
+                    <ul>
+                `;
+
+                receiptData.books.forEach(item => {
+                    receiptHTML += `
+                        <li>
+                            <strong>${item.title}</strong> by ${item.author} - ₹${item.price}<br>
+                            Seller: ${item.sellerName}, Phone: ${item.sellerPhone}
+                        </li>
+                    `;
+                });
+
+                receiptHTML += '</ul>';
+                receiptDetails.innerHTML = receiptHTML;
+            }
+        });
+    </script>
+</body>
+</html>
